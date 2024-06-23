@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TON Connect UI Example</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tonconnect/ui@0.2.0/dist/style.css">
+</head>
+<body>
+    <h1>Hello, please connect your wallet</h1>
+    <div id="connect"></div>
+  <button id="connect-button">Подключить кошелек</button>
+  <button id="pay-button">Оплатить 100 TON</button>
+
+  <script >
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+    manifestUrl: 'https://bxull.github.io/wallet-test/tonconnect-manifest.json',
+    buttonRootId: 'connect'
+});
+  </script>
+</body>
+</html>
