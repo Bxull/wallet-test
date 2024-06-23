@@ -14,6 +14,13 @@
   <button id="pay-button">Оплатить 100 TON</button>
 
   <script >
+
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Расширяем веб-приложение на весь экран
+
+            // Получаем данные пользователя
+
+
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     manifestUrl: 'https://bxull.github.io/wallet-test/tonconnect-manifest.json',
     buttonRootId: 'connect'
