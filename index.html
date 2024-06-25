@@ -11,7 +11,7 @@
     <h1>Hello, please connect your wallet</h1>
     <div id="connect"></div>
   <button id="connect-button">Подключить кошелек</button>
-  <button id="pay-button">Оплатить 100 TON</button>
+  <button onclick="transaction()">Оформить подписку</button>
 
   <script >
 
@@ -25,6 +25,25 @@
     manifestUrl: 'https://bxull.github.io/wallet-test/tonconnect-manifest.json',
     buttonRootId: 'connect'
 });
+
+    function transaction(){
+                    const transaction = {
+                        validUntil: Math.round(Date.now()/ 1000) + 10, 
+                        messages:[
+                        {
+                            address: "0:00000000000000000000000000000000000000000000",
+                            amount:"100000000"
+                        }
+                    ]
+                    };
+                    try{
+                        tonConnectUI.sendTransaction(transaction);
+                    }catch(e){
+                        console.error(e);
+                    }
+                }
   </script>
 </body>
 </html>
+
+
