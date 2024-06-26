@@ -10,7 +10,7 @@
 <body>
     <h1>Hello, please connect your wallet</h1>
     <div id="connect"></div>
-  <button onclick ="sendDataToBot()">отправить данные</button>
+  <button id="disconnect-btn">отвязать кошелек</button>
   <button onclick="transaction()">Оформить подписку</button>
 
   <script >
@@ -25,6 +25,13 @@
     manifestUrl: 'https://bxull.github.io/wallet-test/tonconnect-manifest.json',
     buttonRootId: 'connect'
 });
+
+     tonConnectUI.on((status) => {
+                if (status === 'connected') {
+                   document.getElementById('disconnect-btn').style.backgroundColor = "red";
+                   
+                } 
+            });
 
     function transaction(){
                     const transaction = {
@@ -43,10 +50,23 @@
                     }
                 }
 
-      function sendDataToBot() {
-            Telegram.WebApp.sendData("your data here");
-            // WebApp не закрывается, так как нет команды на закрытие
+ document.getElementById('disconnect-btn').addEventListener('click', async () => {
+        try {
+            // Disconnect the wallet using TON Connect UI
+            await tonConnectUI.disconnect();
+
+            // Update UI to reflect disconnected state
+            document.getElementById('disconnect-message').textContent = 'Кошелек успешно отключен (Wallet disconnected successfully)';
+            document.getElementById('disconnect-message').style.display = 'block';
+
+            // (Optional) Clear any displayed user information
+            // ... (code to clear user info)
+
+        } catch (error) {
+            console.error('Error disconnecting wallet:', error);
+            // Handle disconnection error (e.g., display an error message to the user)
         }
+    });
   </script>
 </body>
 </html>
