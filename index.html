@@ -26,12 +26,7 @@
     buttonRootId: 'connect'
 });
 
-     tonConnectUI.on((status) => {
-                if (status === 'connected') {
-                   document.getElementById('disconnect-btn').style.backgroundColor = "red";
-                   
-                } 
-            });
+     
 
     function transaction(){
                     const transaction = {
@@ -51,22 +46,17 @@
                 }
 
  document.getElementById('disconnect-btn').addEventListener('click', async () => {
-        try {
             // Disconnect the wallet using TON Connect UI
             await tonConnectUI.disconnect();
 
-            // Update UI to reflect disconnected state
-            document.getElementById('disconnect-message').textContent = 'Кошелек успешно отключен (Wallet disconnected successfully)';
-            document.getElementById('disconnect-message').style.display = 'block';
-
-            // (Optional) Clear any displayed user information
-            // ... (code to clear user info)
-
-        } catch (error) {
-            console.error('Error disconnecting wallet:', error);
-            // Handle disconnection error (e.g., display an error message to the user)
-        }
+        
     });
+    tonConnectUI.on((status) => {
+                if (status === 'connected') {
+                   document.getElementById('disconnect-btn').style.backgroundColor = "red";
+                   
+                } 
+            });
   </script>
 </body>
 </html>
