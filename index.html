@@ -18,15 +18,36 @@
             const data = getQueryParam('data');
             const messageElement = document.getElementById("message");
             if (data) {
-                messageElement.textContent = decodeURIComponent(data);
+                const decodedData = decodeURIComponent(data);
+                const jsonData = JSON.parse(decodedData);
+                let htmlContent = "<table><tr><th>Name</th><th>Age</th><th>City</th></tr>";
+                jsonData.forEach(row => {
+                    htmlContent += `<tr><td>${row.name}</td><td>${row.age}</td><td>${row.city}</td></tr>`;
+                });
+                htmlContent += "</table>";
+                messageElement.innerHTML = htmlContent;
             } else {
                 messageElement.textContent = "No data received.";
             }
         });
     </script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>Telegram Web App</h1>
-    <p id="message">Loading...</p>
+    <div id="message">Loading...</div>
 </body>
 </html>
