@@ -1,64 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TON Connect UI Example</title>
-  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        Telegram.WebApp.ready();
+
+        // Получение данных из URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const data = getQueryParam('data');
+            const messageElement = document.getElementById("message");
+            if (data) {
+                messageElement.textContent = decodeURIComponent(data);
+            } else {
+                messageElement.textContent = "No data received.";
+            }
+        });
+    </script>
 </head>
 <body>
-    <h1>Hello, please connect your wallet</h1>
-    <div id="connect"></div>
-  <button id="disconnect-btn">отвязать кошелек</button>
-  <button onclick="transaction()">Оформить подписку</button>
-
-  <script >
-
-        const tg = window.Telegram.WebApp;
-        tg.expand(); // Расширяем веб-приложение на весь экран
-
-            // Получаем данные пользователя
-
-
-    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-    manifestUrl: 'https://bxull.github.io/wallet-test/tonconnect-manifest.json',
-    buttonRootId: 'connect'
-});
-
-     
-
-    function transaction(){
-                    const transaction = {
-                        validUntil: Math.round(Date.now()/ 1000) + 10, 
-                        messages:[
-                        {
-                            address: "0:00000000000000000000000000000000000000000000",
-                            amount:"100000000"
-                        }
-                    ]
-                    };
-                    try{
-                        tonConnectUI.sendTransaction(transaction);
-                    }catch(e){
-                        console.error(e);
-                    }
-                }
-
- document.getElementById('disconnect-btn').addEventListener('click', async () => {
-            // Disconnect the wallet using TON Connect UI
-            await tonConnectUI.disconnect();
-
-        
-    });
-    tonConnectUI.on((status) => {
-                if (status === 'connected') {
-                   document.getElementById('disconnect-btn').style.backgroundColor = "red";
-                   
-                } 
-            });
-  </script>
+    <h1>Telegram Web App</h1>
+    <p id="message">Loading...</p>
 </body>
 </html>
-
-
